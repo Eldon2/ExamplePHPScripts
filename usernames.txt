@@ -1,0 +1,12 @@
+cs386 username
+
+/php/admin username for phpadmin classic root
+
+name of server phpadm
+
+starwars database password
+
+
+http://www.cphilabaum.name/phpmyadmin/index.php?token=7ade0260bd7ac440fa3e17d296b59c4f#PMAURL-6:db_structure.php?db=cs386&table=test&server=1&target=&token=7ade0260bd7ac440fa3e17d296b59c4f
+
+

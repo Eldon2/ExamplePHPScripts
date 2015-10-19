@@ -1,0 +1,60 @@
+INnter Process Communication (IPC) PART 1
+
+(topics and locks)
+
+*locking REgions
+
+-Locks a particular section of a file. This portion can be the entitrety
+of a file or part. Additionally yo can lock for reading or writing
+Locking comes in the form of mandatory and advised locking
+
+-advisory locking(defualt) parts of a program may not "honor" parts of a file are locked
+processes need to check if there is a lock in place and if
+they work directly with the file the advisory potrion does not matter
+A DMBS( database manangement system) keeps honoring
+
+-Mandatory 
+
+advisory is more cost efficient then mandatory.
+If you can make processes work together use advisory.
+
+All examples from this point forward advisory is the used
+protocal
+
+#include <fcntl.h>
+
+int fcntl(int fidles,int command, struct flock *flock_structure);
+
+-commands options
+
+*F_GETLK gets locking information about filedes
+F_SETLK  attempts to lock or unlock a part of a file reference by filesdes
+
+f_SETLKW
+
+*flock_structure
+
+short 1_Type-FRDLCK(shared/read lock),F_UNLCK(unlock),
+FWRLCK(exluseive/write lock)
+shortI_whence-(SEEK_SET....)
+off_t_istart- first bte in the region relative to I_whence
+off_t_l_len-# of bytes in the region
+*pid_t_l_pid-used with FGETLK to report process holding the lock
+
+Conflicts occur mostly in writing. A reading lock and a writing lock don't conflict.
+
+immutable objects exist because they are constant
+
+F_SETLKW command to wait until it can obtain lock.
+
+
+In the lastest assignment pass in a pointer to a struct pointer for
+phone number;
+
+help for lastest project
+
+lseek("   ",NULL, args, NULL);
+
+pass in new arguements through the parameter list
+
+without synchronous you should get corrupted output

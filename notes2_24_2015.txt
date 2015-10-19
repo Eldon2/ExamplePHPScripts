@@ -1,0 +1,165 @@
+Mutual inclusions happens at the object level and areas become critical zone.
+
+Example:
+
+Object: Method 1
+
+object2: Method 2
+object3: Method  3
+
+one thread at a time can execute in the moniter.
+
+valid object monitor---->other valid object monitor
+
+what can't work
+
+object monitor<------ object
+<------------ object 2
+
+in the boudned buffer problem we used notifyall() to prevent startvation and target all waiting threads.
+
+process administration
+
+code for alternate text book=ticma!
+
+Managing time- scheduling
+
+1.) Dispatching Processes
+2.)Criterio ns
+3.)scheduling algorithms
+
+Dispatching Processes
+1.) State transtions
+2.)scheduler/schedule(placing process on cpu)
+3.)Relationship Scheduler/Dispatcher
+a.Schedular dispatcher difference is the dispatcher mechincally moving process to cpu and scheduler arranges this flag.
+
+
+fairness is not a issue in real times systems meaning the most priority should be the most active.
+
+Criterions
+for scheduling specify runtime behavior
+1.) Throughput
+2.) Turnaround Time
+3.)  Response Time
+4.) Wait Time
+
+Criterions are not independent of one another!
+
+badge jobs no input and output just throughput dedicated to processing.
+
+tunraround time= do the shortest job first when fairness is a factor.
+
+Two types of waiting:
+
+reduce wiating time is creating a fiar environ ment and minor postively influence all criterions
+
+scheduling algorithms
+Round Robin("RR-Scheduling:) //first come first serve (think a line with limited resources)Process is being executed as a whole and a timeout occurs, proccesses
+go the back of the queue.
+Priority Scheduling: Each process has a number usually high or now number to denote prioirity. Have as many queues has you have priorities.
+
+
+shortest Job First: Mechanism
+*life of process is alternation of:CPU=phase,wait-phase,CPU-phase,wait-phase...
+*SJF: order queue according to length of CPU-phase(short phases at the front)
+*SJF queue is a prioirty queue.
+
+Shortest job first: implementation
+
+*Weighted sum of CPU-phases
+*calculating priority
+*How to prevent processing from starving
+*how to prevent sstem porcessing from waiting
+
+long processes are in danger of being starved. The solution is each time a process waits its priority number is increased.
+After a process gets on the cpu the priority is decreased. System processes always have more prioity then normal processes. Bad for real time
+systems.
+
+scheduling algorithms have been refined to include new ideas( all algorithms aim to the most important thing at the fastest time)
+
+1.)Shortest Remaining Time
+
+2.)LOttery Scheduling
+
+3.)Gunaranted Scheduling
+
+4.)Real time scheduling algorithms
+
+a. rate monotonic algorithm
+
+b. earlist deadline first
+
+c. least laxity
+
+Memory Management
+
+importance  of main memory
+
+any amoutn of main memory is too small!
+
+Contradiction:
+
+main memeory nessecary but
+there is too little of it
+
+solution
+
+provide additional storage
+high level,transparent memory management
+
+secondary storage is a hardrive not main memory!
+
+abstraction of main memory:
+is a linear sequence of cells
+each cell provides spce for one data object
+
+addresses
+cells are numbered,number= address
+addresses are used to access cells
+modern computing atom cell and lowest is a btye.
+
+adress spaces
+
+*distinction
+
+addresses of physical memeory cells
+addresses in programs
+
+*task of the memory management:
+
+*adress
+
+
+What would have been covered in the midterm!
+
+know how to solve problems in low end c including file io and pointer processes.
+
+-cover pointers
+-sp
+-concurrency;
+
+how to spawn processes(multithreaded systems)
+
+waiting for children
+
+applications scenerios
+
+
+read up on threads and memeory.
+
+p= v12/ws(p)
+
+
+software Eningeering
+
+Design document includes:
+technlogies,language,IDE,framework,components, dep evironment,acceptence critera,executive summary,introduction, dev plan.
+
+
+
+
+
+
+(implies we know how much cpu is being used but normally not the case so we estimate).
+Shortest Job First("SJF-Scheduling")

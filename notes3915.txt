@@ -1,0 +1,327 @@
+
+3/10/2015
+
+cs operating systems
+
+markafile for denoting when a file is open
+
+Virtual memeory notes
+
+(realtimes systems avoid secondary storage for
+time saving)
+
+we augment secondary store by main storage.
+
+We want to keep as many processes as possible in main'storage
+
+What processes do we place on secondary storage and disadvantage.
+
+What are the two levels of grannuity
+-paging
+-swapping
+
+swappping
++processes are swapped completly
++processes,that are to executed, have to be swapped
++Gives the illusion there is more memory.
+
+swapping probkems
+
+*Suitable  gaps have to be foudn
++external fragmentation
++processes bigger than main memory cannot be handled at all
++IPC impossible
+
+Uses a replacement and placement polic to hold process in
+main storage.
+
+
+Replacement policy runs used nRU and LRU
+
+
+x represents used memory
+
+-x-x--------
+
+options for placement
+
+X-X placing in the middle would be best fit
+
+worst fit is also valid
+
+first fit. first fit seems to perform the bast.
+
+IPC impossible (inter proces communcation).
+
+historically there has been a method besides pages called overlays.
+
+overaly pack up memory into overlay files and manage them.
+
+swapping summary
+-The sum of memory requirements may exceed the size of main memory
+-That is "virtual memory"
+-But:External gragmentation:
+-solutions breaking up the processs
+
+segmentation!
+
+logical address segment# offset
+
+no partial mapping
+
+segment table is used to determine if a segment is in main storare 
+or not.
+
+segmentation
+
+mechanism:swapping og segments
+-swapping of processes becomes swapping of segments
+-To support this, CPU needs additional information
+-To remember the location of swapped out sgements, the OS needs additional informat
+
+NRU= not recently used
+
+IF you want to swap into main storage but there is not enough'
+room you need to swap the thing from secondary to main by replacing
+a NRU physical address.
+
+
+NRU-"accessed"- If you read a file access bit is set. Accessed flag reset by operating system.
+-::Dirty" - indication that the comments of a section got changed
+and has not beened saved. (AD) bitmask is bieing read. The slowest group that does not have AD is thrown out
+
+The Least recently used
+-age age counter gets reset every time the file is accessed.
+-
+
+
+Segmentation( segmentation allows communcation between processes.
+IPC: Sharing of INstructions/DATA
+
+process 1 text 1000
+
+
+paging does not allowed for external fragmentation
+
+paging allows us to fit inbetween entries because each page is the same size
+
+paging
+
+-pages/page frames
+-A simple page table mechanism
+-Two stage address mapping
+A page table should be the size of number of pages
+
+mechanism:Two stage Adress Mapping
+
+inote: Does not contain a file name bu everything else.First
+then then are direct , 11 is first 12, is second, 13 is third stage happening
+Writes and privilenges in the first ten.
+
+setup for rights
+
+-(directory)|TWX|TWX|TWX| others/group/user  777 gives al rights (remember three bits is 7)
+
+managing a file's contents buffering
+
+performance flaw
+
+caching of blocks by buffering
+-usage of buffers
+requirements
+mechanism
+
+data is loaded onto the buffer which can be accessed easier
+
+You need to determine very qucikly if a block is in the buffer cache.
+Finding a free buffer in case something is found is important
+
+If the file is bigger then cache:
+
+methods for managing 
+
+use a has value in a linked list format to store information in a block
+A block is simply a category determined by modulus. Think 249 final program
+
+If you need room and all block's contents are full you need
+to assign to free blocks. If a block has not been accessed for a read or write at
+that moment then it is free. Free segments are used for this loading. Blocks can be thought of as part of
+a free link list and block list . If modified it is not in the free link list. sgements
+are appended to the end of the free list. Meaning all the ones at
+the front of the free list have not been used in awhile.
+
+The user interface
+-file names
+-directories,root directoy
+-special entries
+-links
+-file systems
+-rights
+
+imode needs to be linked to a filename. This can be found in a file directory.
+
+rules the operating system must have only one parent directory or root
+
+.
+..
+
+These dots are filenames 
+
+. is a link to the current directory inode
+.. is a link to the parent directory inode
+
+in a index node it containts number of links. If that number is egual to zero the file is destroyed.
+
+Hardlinks map inodes to different files of names.
+symbolic links work across file systems
+
+you can creqte links with the command line in linuz ln
+-s symbol link.
+
+to work with something like a usb flash drive you have to have the superimpose the
+files into the root structure. Goes into root structure as a substructure and uses
+symbolic links. usually want to mount into a empty directory.
+
+inter process communication
+
+shell
+
+fork()
+
+parent   child
+wait()   call exe()
+     
+After the child is finished it executes a sigcld
+and the parent gets the signal and carries on
+sidenote the above structure imagen a tree with parent and child
+branching
+
+From a linux perspective it is easier to not wait for the child and
+proscend.
+
+fcntl() allows you protect pieces of a file.
+
+What we focused on the today was the signal SIGCHILD sent by the child upon finishing
+a way to inter process communicate in a anyscronhous way.
+
+A process either catchs a signal or the process terminates
+
+signals example
+
+man signal
+reation to signal -> respond with signal hander or terminate
+                  -> Activate
+                     SIGNCHILD cannot be caught
+
+Signal are sent t0 a process using the kill(int pid,int sig_no)
+get pid through ps.
+
+kill_-s sin_num_signinal pid
+
+
+How t0 catch a singal
+
+signal( int sis_num, void(*handler)(int)) //pointer to header function
+
+function returns a function pointer
+
+full sig
+
+void(*signal(int sis_num,void(*handler)(int)))(int)
+
+types of handler constants, look up
+
+If you want to stop repeated signal by you have to point to the orginal handler
+to prevent additional kill sequences
+
+alarm(seconds) // you can set the alarm clock for a process. A alarm signal is sent shortly after
+
+smyboloc constant for alarm  SIGALRM
+
+for(;;)// goes on forever
+
+aschronyous signal can got to any process including yourself.
+
+4/2/2015
+
+pause();
+
+
+
+
+/* simulating time out repears timeout message using a kill
+command line. If the signal command was not there a singe signal
+would be sent but after the first reset the singal is set to the unkown defualt
+resulting in thread being killed*/
+
+#include <signal.h>
+#include <stdio.h>
+#include <unistd.h>
+
+void timeoutHandler( int signo);
+
+int main(){
+
+printf("\nPID %d\n, get pid));
+
+for(;;){
+
+signal(SIGALRM,timeouthandler
+alarm(1);
+pause();
+
+void timeoutHandler(int singo)
+printf("\ntime out occured);
+
+
+
+
+}
+
+
+}
+
+A daemon is a process that runs in the background of a unix system
+that is not hard to be effected by other processes. No standard input and output.
+
+To create a deamon. Create a process and a child using fork(creates processes). Then make the child a process group leader.
+
+setpgrp() creates process group leader
+
+setsid(); creates unique process id 
+
+unmask(0)// guarenetes file rights will not be taken away and the process leader ha full access.
+
+close all std*
+stdin;
+stdout
+stderr
+
+//attachs from terminal making it a fuly realized deamon.
+
+you finally need to set up logging for the deamon
+
+control_> singinal
+
+you can communciate to the process through sockets and signals
+
+steps ina program
+
+fork off og parent
+parent exits
+change the file mode mask
+make the child process group leader
+change into the working directoty
+close out the stanard file descriptor
+handle termination of deamon via catching SIGURSe1
+open syslog here
+setlogmask(LOG_MASK(LOG_NOTICE))
+openlog( "DEAMON example, log_cons
+syslog(log notice, " the deamon with PId % d starts logging, get pid);
+
+
+
+the process group id is the process id of the leader
+
+
+sign up for slack

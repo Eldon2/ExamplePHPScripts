@@ -1,0 +1,91 @@
+
+Notes Input and Output operating systems
+
+*introduction
+*I/O hardware
+*I/o software
+
+I/o part of OS most complicated
+requirements 
+solution
+
+types of access
+
+Desirable features of a operating system
+
+
+common access
+exclusive access
+accesing slow devices blocking/unblocking
+
+sloq devices are blocked
+
+clear and eas API
+
+user level I/O software
+communitates between on a lower level
+Device independent I/O Software
+Device Drivers,Interrupt Handlers
+communicates between on a lower level
+controller
+"pure hardware"
+
+
+Lowest level I/O Hardware
+Mechincal and electronical component
+Device controller
+controller-OS communication
+
+A older sytle of memory mapped I/O is 
+
+port in networks actually corrspeond to special registers controlled through a controller bus.
+
+In linux it is common to adapt devices for other mircosoft apis by using
+system calls to find out what registers are being written to and stored.
+
+port mapped I/O
+how we managage addresses of a device controller
+
+*Programmed IO
+
+*Interrupt driven IO used to deal with slow devices
+1.) make a anshronycrouns call but make it look like a synchronous
+
+device independence 
+error handling
+uniform namming
+ once again make asychronous calls look schronous
+ sharable devices
+
+
+ device driver-
+ Piece of software that communicates directly to the device handler
+ -translates avstract request into something usable by the device
+ -old feature that does not imply much anymore some error handling such as repeating access a disk until physical dust is spun off
+
+ -unform interfacing to the device
+ device naming is realized here
+ -Device handling
+ -block size
+
+ -device protector
+ -admin
+ -error reporting
+
+ Highest layer is the ser I?o software
+
+ users level procedures concerned with I/o( systyem commands)
+
+ may be either pure interface to system call
+ additionally some functionality of thier own
+ spooling
+
+ //side note linux makes everything into a file because it allows a library of //file based on operations like read,write,privilgnes or file names. So it //provides.
+
+ //Not every device is capable of reading and writing gets around that by using //ioct() using system calls speficic to a device.
+ functionality and convience.
+
+
+
+errno(surprising global varaible)
+perror

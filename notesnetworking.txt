@@ -1,0 +1,14 @@
+
+server
+
+
+socket()
+bind()
+listen()
+accept() returns a file descriptor of a open file
+allowing us to read the to the end of the file.
+
+celient
+
+socket()
+connect()

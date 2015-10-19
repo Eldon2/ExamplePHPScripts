@@ -1,0 +1,74 @@
+"Source-to-dest path behaves much like telephone circuit"
+1.) Performance-wise
+2.)Network actions along source-to-dest path
+
+
+chapter 4: Network layer
+
+VC imploementation
+
+a VC consists of 
+
+1.) Path from source to destination
+
+2.) VC numbers, one number for each link along the path
+
+3.)entries in forwarding tables in routers along path.
+
+packet beloinging to VC carries VC number
+
+
+
+VC number is recieved upon packet arriving at the router and vc number is changed upon exiting.
+
+It is this way to AVOID HAVING TO HAVE A GLOBAL ACCESSING SCHEME. do NOT NEED TO HAVE A GLOBAL ADDRESS.
+
+nOT USED IN TODAYS INTERNET.
+
+Datagram networks
+
+whoever use
+
+struct person{
+
+        current_rec;
+
+
+}
+read(id,&current_record,sizeof(struct person).
+
+
+
+waiting for terminated Child
+
+when a process terminates, the kernel sends the signal SIGCHLD to the parent
+
+What if the parent wants to know more about how the child terminated?
+
+ZOMBIE: kernel puts child into a special process state before it dissapears
+-minimal skeleton of what was once the process is retained
+
+wait
+
+----->childis born and executed process and the main parent process will return to the parent after x time had been completed.
+
+------>(child)& runs child file in the background by avoiding the call to wait in the parent
+
+Zombie Process
+
+*process that has terminated but has not been waited on by its parent
+*Contunie to consume resources
+-until parents issues a wait,then kernel cleans up the process
+All parents should  wait on children
+What if the parent dies before the child?
+children get"re-parented" to init process
+*init periodically waits on all children
+
+wait () Actions
+
+
+(Pro tip always wait on the parents side to catch zombies)
+
+*A process that calls wait () can:
+
+-suspend(block) if all of its children are still running,or

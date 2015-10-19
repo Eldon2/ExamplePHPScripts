@@ -1,0 +1,48 @@
+<?php
+$user = $pass = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	$servername = "localhost";
+	$username = "cs386";
+	$password = "starwars";
+	$dbname = "cs386";
+	// Create connection
+	$conn = mysqli_connect($servername, $username, $password, $dbname);
+	// Check connection
+	if (!$conn) {
+	    die("Connection failed: " . mysqli_connect_error());
+	}
+	mysqli_set_charset($conn,"utf8mb4");
+
+    $data=json_decode(file_get_contents('php//input'),true);
+
+    $Start_Data = filter_var($data['Start_Data'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $End_Data = filter_var($data['End_Date'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $Eval_Creator_Data =filter_var($data['Employee_ID']
+        FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
+    //function
+
+    // Uses a prepared statement for easier concatenating, which replaces ?'s with values.
+    if(!$stmt = mysqli_prepare($conn, "INSERT INTO Evaluation Eval_ID,Start_Date,End_Date,Eval_Creator VALUE rand(5,15), ? ,?,?   LIMIT 1")) {
+    	die("Error: " . mysqli_error());
+    }
+    // Bind string,string with $user,$pass.
+    if(!mysqli_stmt_bind_param($stmt,"ssi",$Start_Data,$End_Data,$Eval_Creator_Data)) {
+    	die("Error: " . mysqli_stmt_error());
+    }
+
+    if(!mysqli_stmt_execute($stmt)) {
+    	die("Error: " . mysqli_stmt_error());
+    }
+    mysqli_stmt_store_result($stmt);
+    header('Content-Type: text/plain');
+    if(mysqli_stmt_num_rows($stmt) > 0) {
+    	echo "true";
+    }
+    else {
+    	echo "false";
+    }
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+}
+?>

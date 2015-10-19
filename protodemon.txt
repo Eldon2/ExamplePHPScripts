@@ -1,0 +1,63 @@
+
+//1.)Fork to create a child, and exit the parent process.
+//2.)Change the umask so that we aren’t relying on the one set in the parent.
+//3.)Open logs to write to in the case of an error.
+//4.)Create a new session id and detach from the current session.
+//5.)Change the working directory to somewhere that won’t get unmounted.
+//6.)Close STDIN, STDOUT and STDERR.
+
+
+//signal(SIGTERM,deamon_exit) good way to kill process
+
+//otte asked for us to seperate the driver and the demon
+//include header file for demon
+
+
+//example header in file for demon
+
+//void demon_exit(int sig_number);
+//void demon_init(void);
+
+//example
+
+#inclde "demon.h"
+#define TRUE FALSE
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <syslog.h>
+
+void create_daemon()
+{
+
+
+pid_t pid;
+
+pid=fork();// fork off parent process
+
+if(pid<0) // fork failed
+
+exit(EXIT_FAILURE);
+
+if( pid>0)          //succeded meaning its time to kill the parent
+exit(EXIT_SUCCESS);
+
+
+if(setsid() <0) // Child becomes session leader
+exit(EXIT_FAILURE)
+
+umask(0); //allows for new file permissions to be set.
+
+openlog(argv[0],LOG_NOWAIT|LOG_PID,LOG_USER);
+
+syslog(LOG_NOTICE," Succesfully started deamon\n");
+// sends message to deamon
+
+closelog();
+
+//

@@ -1,0 +1,59 @@
+Automated GUI TESTING:
+
+focuses on front end user testing.
+
+downsides of GUI testing at current time
+
+GUI testing is expensive,
+
+labor intensive with core problems occuring when the program
+experiences a unexpected state.
+
+current GUI testing approcoachs
+
+Maneul
+Capture-then-Replay ( somewhat automated rewinding film of past recording
+Model_based( fully autmoated)
+
+uses EFG state machine graph and EIG using a similar model
+
+look up tecniques later( roughly nine major ones were listed in the example)
+
+
+.data # data declaration section
+
+#Variables
+
+inputNums:  .asciiz   "\n\nPlease enter up to 10 digits: "
+newLine:    .asciiz    "\n"
+numsString  .asciiz   "     "
+
+.text
+
+main:
+
+la $a0 inputNums #get message from user
+li $vo ,4
+syscall
+la $ a0,numString  #load string to hold numbers
+li $a1,11    $load input+1 into al
+li $vo,8      #read input 
+syscall
+
+li $s7,10   #s7 upper index
+
+#functions 
+
+jal caps
+jal BSort
+jal PrintNums
+j exit
+
+#uses ASCII codes to sort letters
+
+la $s0,numString #load the input
+add $t6,$zero,$zero #index=0
+
+#conditional branch to decide if loop ends
+upper:
+      beq $ t6,$s7
